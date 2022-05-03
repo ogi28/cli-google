@@ -10,6 +10,9 @@ let query = argv.join('\\ ');
 
 browser.stdout.on('data', (data) => {
   let browserName = data.toString().substring(0, data.toString().indexOf('.'));
+  if (browserName === 'google-chrome') {
+    browserName = 'google-chrome-stable';
+  }
   cp.exec(`${browserName} https://www.google.com/search?q=${query}`, (err, _, stderr) => {
     if (err) {
       console.error(`Error : ${err}`);
