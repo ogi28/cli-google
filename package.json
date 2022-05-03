@@ -1,12 +1,15 @@
 {
   "name": "cli-google",
-  "version": "1.0.0",
-  "description": "A small command line app to search google with your default browser",
+  "version": "2.0.0",
+  "description": "A small command line app to search web with the browser of your choice",
   "type": "module",
   "main": "bin/index.js",
   "author": "Ogi28",
-  "license": "ISC",
+  "license": "MIT",
   "bin": {
     "howto": "./bin/index.js"
+  },
+  "dependencies": {
+    "yargs": "^17.4.1"
   }
 }

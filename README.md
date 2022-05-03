@@ -16,7 +16,7 @@ sudo pacman -S xdg-utils
 ## Installation
 Just copy this command in to your favorite terminal!
 ```bash
-git clone https://github.com/ogi28/cli-google.git ; cd cli-google ; npm i -g .
+git clone https://github.com/ogi28/cli-google.git ; cd cli-google ; npm i ;npm i -g .
 ```
 If you get an error with npm, check your permissions or run
 ```bash
@@ -24,7 +24,8 @@ sudo npm i -g .
 ```
 
 ## Usage
-the name of the app is howto, followed by what you would like to search on google, such as :
+the name of the app is howto.
+howto --help for more information.
 ```bash
 howto how cold will it be tomorrow?
 ```
