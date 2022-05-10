@@ -1,6 +1,6 @@
 {
   "name": "cli-google",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A small command line app to search web with the browser of your choice",
   "type": "module",
   "main": "bin/index.js",

@@ -10,14 +10,19 @@ const argv = yargs(hideBin(process.argv)).options({
     alias: 'browser',
     describe: 'The browser to use',
     choices: ['chrome', 'firefox', 'chromium', 'opera'],
-    // type: 'string',
   },
   's': {
     alias: 'searchWith',
     describe: 'The search engine to use',
     type: 'string',
     choices: ['google', 'bing', 'duckduckgo']
+  },
+  'p': {
+    alias: 'private',
+    describe: 'Use private mode',
+    type: 'boolean',
   }
+
 }).argv;
 
 const browserExecutable = {
@@ -32,13 +37,30 @@ const searchEngine = {
   bing: 'https://www.bing.com/search?q=',
   duckduckgo: 'https://duckduckgo.com/?q='
 }
+const privateFlag = {
+  google: "--incognito",
+  opera: "--private",
+  firefox: "--private-window",
+  chromium: "--incognito"
+}
 
 const browser = cp.spawn('xdg-settings get default-web-browser', [], { shell: true });
 
 browser.stdout.on('data', (data) => {
   data = data.toString().trim();
-  const browserName = argv.browser || data.substring(0, data.indexOf('.')).toLowerCase();
+  let browserName = argv.browser || data.substring(0, data.indexOf('.')).toLowerCase();
   const searchWith = argv.searchWith || 'google';
   const query = argv._.join('\\ ');
-  cp.exec(`${browserExecutable[browserName]} ${searchEngine[searchWith]}${query}`)
+  //for browsers with more than one word for its name
+  for (const key in browserExecutable) {
+    if (browserName.startsWith(key)) {
+      browserName = browserExecutable[key];
+      break;
+    }
+  }
+  if (argv.private) {
+    console.log("Opening in private mode");
+    cp.exec(`${browserExecutable[browserName]} ${privateFlag[browserName]} ${searchEngine[searchWith]}${query}`)
+  }
+  else if (!argv.private) cp.exec(`${browserExecutable[browserName]} ${searchEngine[searchWith]}${query}`)
 })
